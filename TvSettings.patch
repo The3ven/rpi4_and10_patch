@@ -1,0 +1,14 @@
+Settings/res/layout/setup_password_item.xml
+@@ line 35
+-   <EditText
++   <androidx.leanback.widget.GuidedActionEditText
+        android:id="@+id/guidedactions_item_title"
+        style="@style/Setup.Action.TextInput"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:imeOptions="actionNext|flagNoExtractUi"
++       android:inputType="text" />
+-       android:inputType="text">
+-   </EditText>

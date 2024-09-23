@@ -1,0 +1,31 @@
+media/libstagefright/colorconversion/SoftwareRenderer.cpp
+@@ line 128 @@ void SoftwareRenderer::resetFormatIfChanged(
+     case OMX_COLOR_FormatYUV420Planar:
++        {
++            halFormat = HAL_PIXEL_FORMAT_RGBA_8888;
++            bufWidth = (mCropWidth + 1) & ~1;
++            bufHeight = (mCropHeight + 1) & ~1;
++            break;
++        }
+     case OMX_COLOR_FormatYUV420SemiPlanar:
+@@ line 182
+         CHECK(mConverter->isValid());
++    } else if (halFormat == HAL_PIXEL_FORMAT_RGBA_8888 &&
++            mColorFormat == OMX_COLOR_FormatYUV420Planar) {
++        mConverter = new ColorConverter(
++                mColorFormat, OMX_COLOR_Format32BitRGBA8888);
++        CHECK(mConverter->isValid());
+     }
+
+
+
+media/codec2/vndk/C2Store.cpp
+@@ line 851 @@ C2PlatformComponentStore::C2PlatformComponentStore()
+     //emplace("libcodec2_soft_av1dec_aom.so"); // deprecated for the gav1 implementation
+-    emplace("libcodec2_soft_av1dec_gav1.so");
+-    emplace("libcodec2_soft_avcdec.so");
+     emplace("libcodec2_soft_avcenc.so");
+@@ line 873
+     emplace("libcodec2_soft_vp8enc.so");
+-    emplace("libcodec2_soft_vp9dec.so");
+     emplace("libcodec2_soft_vp9enc.so");
